@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CleanFirmeza.Domain\CleanFirmeza.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
