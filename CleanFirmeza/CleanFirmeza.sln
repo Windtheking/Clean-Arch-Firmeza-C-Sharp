@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanFirmeza.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanFirmeza.Infrastructure", "src\CleanFirmeza.Infrastructure\CleanFirmeza.Infrastructure.csproj", "{51E30974-33A3-4BC3-8D4D-57ADACC5E9D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanFirmeza.Web", "src\CleanFirmeza.Presentation\CleanFirmeza.Web\CleanFirmeza.Web.csproj", "{208F0F0B-218A-4106-BCBD-C1D4FA8E82E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanFirmeza.Api", "src\CleanFirmeza.Presentation\CleanFirmeza.Api\CleanFirmeza.Api.csproj", "{32C575B8-CC7D-4FA8-A3BD-57649034351C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{51E30974-33A3-4BC3-8D4D-57ADACC5E9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51E30974-33A3-4BC3-8D4D-57ADACC5E9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51E30974-33A3-4BC3-8D4D-57ADACC5E9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208F0F0B-218A-4106-BCBD-C1D4FA8E82E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208F0F0B-218A-4106-BCBD-C1D4FA8E82E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208F0F0B-218A-4106-BCBD-C1D4FA8E82E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208F0F0B-218A-4106-BCBD-C1D4FA8E82E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C575B8-CC7D-4FA8-A3BD-57649034351C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C575B8-CC7D-4FA8-A3BD-57649034351C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C575B8-CC7D-4FA8-A3BD-57649034351C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C575B8-CC7D-4FA8-A3BD-57649034351C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
