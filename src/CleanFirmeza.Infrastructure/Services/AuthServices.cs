@@ -10,6 +10,7 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUsser> _userManager;
     private readonly SignInManager<ApplicationUsser> _signInManager;
+    // private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public AuthService(
@@ -117,6 +118,18 @@ public class AuthService : IAuthService
         throw new NotImplementedException();
     }
 
+    public async Task<bool> LoginAsync(string email, string password, bool rememberMe)
+    {
+        var result = await _signInManager.PasswordSignInAsync(
+            email,
+            password,
+            rememberMe,
+            lockoutOnFailure: false
+        );
+
+        return result.Succeeded;
+    }
+
 
     private UserDto MapToUserDto(ApplicationUsser user)
     {
@@ -131,4 +144,10 @@ public class AuthService : IAuthService
             CreatedAt = user.CreatedAt
         };
     }
+    
+    public async Task LogoutAsync()
+    {
+        await _signInManager.SignOutAsync();
+    }
+
 }

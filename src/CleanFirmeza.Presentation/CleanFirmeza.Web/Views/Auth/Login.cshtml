@@ -1,7 +1,7 @@
-@model CleanFirmeza.Application.DTOs.Auth.RegisterDto
+@model CleanFirmeza.Application.DTOs.Auth.LoginDto
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Login";
     Layout = "_AuthLayout";
 }
 
@@ -9,29 +9,37 @@
     <div class="col-md-6">
         <div class="card shadow">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Iniciar sesion</h2>
+                <h2 class="card-title text-center mb-4">Iniciar sesión</h2>
 
-                <form asp-action="Register" method="post">
+                <form asp-action="Login" asp-controller="Auth" method="post">
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
                     <div class="mb-3">
-                        <label asp-for="Email" class="form-label">Email</label>
-                        <input asp-for="Email" type="email" class="form-control" placeholder="juan@ejemplo.com" required />
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" placeholder="juan@ejemplo.com" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Password" class="form-label">Contraseña</label>
-                        <input asp-for="Password" type="password" class="form-control" required />
-                        <small class="form-text text-muted">
-                            Mínimo 6 caracteres, debe incluir mayúscula, minúscula, número y carácter especial.
-                        </small>
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
-                    
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Iniciar sesión
+                    </button>
 
                     <div class="text-center mt-3">
-                        <p>¿No tienes cuenta? <a asp-action="Register" asp-controller="Auth">Registrate aquí</a></p>
+                        <p>
+                            ¿No tienes cuenta?
+                            <a asp-action="Register" asp-controller="Auth">Regístrate aquí</a>
+                        </p>
                     </div>
                 </form>
             </div>
@@ -39,7 +47,6 @@
     </div>
 </div>
 
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
- 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
