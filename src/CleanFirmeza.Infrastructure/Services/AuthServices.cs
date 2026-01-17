@@ -120,8 +120,13 @@ public class AuthService : IAuthService
 
     public async Task<bool> LoginAsync(string email, string password, bool rememberMe)
     {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return false;
+
         var result = await _signInManager.PasswordSignInAsync(
-            email,
+            user.UserName!,
             password,
             rememberMe,
             lockoutOnFailure: false
@@ -129,6 +134,8 @@ public class AuthService : IAuthService
 
         return result.Succeeded;
     }
+
+
 
 
     private UserDto MapToUserDto(ApplicationUsser user)

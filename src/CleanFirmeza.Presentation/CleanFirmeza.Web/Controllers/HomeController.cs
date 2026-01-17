@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CleanFirmeza.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CleanFirmeza.Web.Controllers;
 
@@ -13,8 +14,14 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [AllowAnonymous]
     public IActionResult Index()
     {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToAction("Index", "User");
+        }
+
         return View();
     }
 

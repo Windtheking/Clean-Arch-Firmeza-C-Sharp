@@ -32,7 +32,10 @@ public class AuthController : Controller
 
         if (result.Success)
             return RedirectToAction("Index", "Home");
-
+        
+        foreach (var error in result.Errors ?? new List<string>())
+            ModelState.AddModelError(string.Empty, error);
+        
         return View(model);
     }
     
