@@ -1,5 +1,6 @@
 using CleanFirmeza.Application.Common;
 using CleanFirmeza.Application.DTOs;
+using CleanFirmeza.Application.DTOs.Import;
 using CleanFirmeza.Application.Interfaces;
 using CleanFirmeza.Domain.Entities;
 using CleanFirmeza.Domain.Interface;
@@ -70,5 +71,10 @@ public class ProductService : IProductService
         if (product == null) return;
 
         await _repo.DeleteAsync(product);
+    }
+
+    public Task<List<ProductExcelRowDto>> ImportFromExcelAsync(Stream file)
+    {
+        throw new NotImplementedException();
     }
 }

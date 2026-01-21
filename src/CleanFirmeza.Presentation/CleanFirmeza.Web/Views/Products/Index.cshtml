@@ -22,9 +22,19 @@
     </div>
 </form>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+<div class="d-flex justify-content-between mb-3">
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+</div>
+
+<input type="file" id="excelFileInput" accept=".xlsx" hidden />
+
+<button type="button"
+        class="btn btn-secondary"
+        onclick="openExcelPicker()">
+    Bulk Create
+</button>
 
 <!-- 📦 Tabla de productos -->
 <table class="table table-striped">

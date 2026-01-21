@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\..\CleanFirmeza.Application\CleanFirmeza.Application.csproj" />
     </ItemGroup>
 
 </Project>

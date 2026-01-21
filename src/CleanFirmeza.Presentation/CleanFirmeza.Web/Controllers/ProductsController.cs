@@ -66,6 +66,22 @@ namespace CleanFirmeza.Web.Controllers
         }
 
         // =========================
+        // BULK CREATE
+        // =========================
+        [HttpPost]
+        public async Task<IActionResult> UploadExcel(IFormFile file)
+        {
+            return Ok(new
+            {
+                success = true,
+                message = "Endpoint reached"
+            });
+
+        }
+
+        
+        
+        // =========================
         // EDIT
         // =========================
         public async Task<IActionResult> Edit(Guid id)
