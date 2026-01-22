@@ -16,13 +16,15 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost("UploadExcel")]
-    public async Task<IActionResult> UploadExcel(Stream file)
+    public async Task<IActionResult> UploadExcel(IFormFile file)
     {
         if (file == null || file.Length == 0)
             return BadRequest("Archivo no válido");
 
-        var result = await _productService.ImportFromExcelAsync(file);
+        using Stream excelStream = file.OpenReadStream();
 
-        return Ok(result);
+        var inserted = await _productService.ImportFromExcelAsync(excelStream);
+
+        return Ok(inserted);
     }
 }

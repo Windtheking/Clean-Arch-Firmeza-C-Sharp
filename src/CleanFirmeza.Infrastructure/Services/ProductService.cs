@@ -2,6 +2,7 @@ using CleanFirmeza.Application.Common;
 using CleanFirmeza.Application.DTOs;
 using CleanFirmeza.Application.DTOs.Import;
 using CleanFirmeza.Application.Interfaces;
+using CleanFirmeza.Application.Interfaces.Import;
 using CleanFirmeza.Domain.Entities;
 using CleanFirmeza.Domain.Interface;
 
@@ -11,10 +12,12 @@ public class ProductService : IProductService
 {
     private readonly IProductRepository _repo;
     private const int PageSize = 10;
-
-    public ProductService(IProductRepository repo)
+    private readonly IProductExcelMapper _excelMapper;
+    
+    public ProductService(IProductRepository repo,  IProductExcelMapper excelMapper)
     {
         _repo = repo;
+        _excelMapper = excelMapper;
     }
 
     public async Task<List<Product>> GetAllAsync()
@@ -73,8 +76,24 @@ public class ProductService : IProductService
         await _repo.DeleteAsync(product);
     }
 
-    public Task<List<ProductExcelRowDto>> ImportFromExcelAsync(Stream file)
+    public async Task<int> ImportFromExcelAsync(Stream file)
     {
-        throw new NotImplementedException();
+        var rows = await _excelMapper.ImportFromExcelAsync(file);
+        int inserted = 0;
+        
+        foreach (var row in rows)
+        {
+            var product = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = row.Name,
+                Description = row.Description,
+                UnitCost = row.UnitCost
+            };
+            await _repo.AddAsync(product);
+            inserted++;
+        }
+
+        return inserted;
     }
 }

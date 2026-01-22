@@ -1,5 +1,7 @@
 using CleanFirmeza.Application.Interfaces;
 using CleanFirmeza.Application.Interfaces.Auth;
+using CleanFirmeza.Application.Interfaces.Import;
+using CleanFirmeza.Application.Services.import;
 using CleanFirmeza.Domain.Interface;
 using CleanFirmeza.Infrastructure.Repositories;
 using CleanFirmeza.Infrastructure.Services;
@@ -13,6 +15,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IProductExcelMapper, ProductExcelMapper>();
         services.AddScoped<IProductService, ProductService>();
 
 

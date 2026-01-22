@@ -71,10 +71,23 @@ namespace CleanFirmeza.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadExcel(IFormFile file)
         {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Archivo no válido"
+                });
+            }
+
+            using var stream = file.OpenReadStream();
+
+            var inserted = await _productService.ImportFromExcelAsync(stream);
+
             return Ok(new
             {
                 success = true,
-                message = "Endpoint reached"
+                inserted
             });
 
         }

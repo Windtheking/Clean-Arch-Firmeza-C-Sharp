@@ -1,9 +1,10 @@
+
 using CleanFirmeza.Application.Common;
 using CleanFirmeza.Application.DTOs;
-using CleanFirmeza.Application.DTOs.Import;
 using CleanFirmeza.Application.Interfaces;
 using CleanFirmeza.Domain.Entities;
 using CleanFirmeza.Domain.Interface;
+using ExcelPackage = OfficeOpenXml.ExcelPackage;
 
 
 namespace CleanFirmeza.Application.Services;
@@ -74,8 +75,42 @@ public class ProductService : IProductService
         await _repo.DeleteAsync(product);
     }
 
-    public Task<ProductExcelRowDto> ImportFromExcelAsync(Stream file)
+    public async Task<int> ImportFromExcelAsync(Stream excelStream)
     {
-        throw new NotImplementedException();
+        // EPPlus 8 – licencia NO comercial
+        ExcelPackage.License.SetNonCommercialOrganization("CleanFirmeza");
+
+        using var package = new ExcelPackage(excelStream);
+        var worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+        if (worksheet == null || worksheet.Dimension == null)
+            return 0;
+
+        int inserted = 0;
+
+        for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+        {
+            var name = worksheet.Cells[row, 1].GetValue<string>();
+            var description = worksheet.Cells[row, 2].GetValue<string>();
+            var unitCost = worksheet.Cells[row, 3].GetValue<decimal>();
+
+            // Validación mínima
+            if (string.IsNullOrWhiteSpace(name) || unitCost <= 0)
+                continue;
+
+            var product = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = name,
+                Description = description,
+                UnitCost = unitCost
+            };
+
+            await _repo.AddAsync(product);
+            inserted++;
+        }
+
+        return inserted;
     }
 }
+
