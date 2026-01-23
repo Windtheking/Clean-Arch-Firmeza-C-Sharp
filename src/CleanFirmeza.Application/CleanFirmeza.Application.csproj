@@ -15,6 +15,7 @@
       <PackageReference Include="EPPlus" Version="8.4.1" />
       <PackageReference Include="FluentValidation" Version="12.1.1" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.9" />
+      <PackageReference Include="MimeKit" Version="4.14.0" />
       <PackageReference Include="NuGet.Packaging" Version="6.11.0" />
       <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
     </ItemGroup>

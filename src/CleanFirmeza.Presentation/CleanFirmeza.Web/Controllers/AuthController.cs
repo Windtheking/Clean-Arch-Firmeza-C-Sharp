@@ -1,17 +1,21 @@
 using CleanFirmeza.Application.DTOs.Auth;
 using CleanFirmeza.Application.Interfaces.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CleanFirmeza.Web.Controllers;
 
+[Route("Auth")]
 public class AuthController : Controller
 {
     private  readonly IAuthService _authService;
+    private readonly IAccountDeletionService _accountDeletionService;
     
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IAccountDeletionService accountDeletionService)
     {
         _authService = authService;
+        _accountDeletionService = accountDeletionService;
     }
     
     [HttpGet]
@@ -72,6 +76,37 @@ public class AuthController : Controller
         await _authService.LogoutAsync();
         return RedirectToAction("Login", "Auth");
     }
+    
+    [Authorize]
+    [HttpPost("send-delete-code")]
+    public async Task<IActionResult> SendDeleteCode(SendDeleteCodeDto dto)
+    {
+        await _accountDeletionService.SendDeleteCodeAsync(dto.Email);
+        return Json(new { success = true });
+    }
+
+
+    [Authorize]
+    [HttpPost("delete-account")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteAccount(DeleteAccountDto dto)
+    {
+        await _accountDeletionService.DeleteAccountAsync(
+            dto.Email,
+            dto.Password,
+            dto.Code
+        );
+
+        await _authService.LogoutAsync();
+
+        return RedirectToAction("Login", "Auth");
+    }
+
 
 }
 
+
+
+    
+
+   
