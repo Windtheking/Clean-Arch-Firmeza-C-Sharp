@@ -72,25 +72,37 @@ namespace CleanFirmeza.Web.Controllers
         public async Task<IActionResult> UploadExcel(IFormFile file)
         {
             if (file == null || file.Length == 0)
+                return BadRequest(new { success = false, message = "Not valid file type" });
+
+            try
+            {
+                using var stream = file.OpenReadStream();
+                var inserted = await _productService.ImportFromExcelAsync(stream);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = $"{inserted} products inserted correctly"
+                });
+            }
+            catch (ApplicationException ex)
             {
                 return BadRequest(new
                 {
                     success = false,
-                    message = "Archivo no válido"
+                    message = ex.Message
                 });
             }
-
-            using var stream = file.OpenReadStream();
-
-            var inserted = await _productService.ImportFromExcelAsync(stream);
-
-            return Ok(new
+            catch (Exception)
             {
-                success = true,
-                inserted
-            });
-
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Unexpected error while loading the file, please reload and retry"
+                });
+            }
         }
+
 
         
         

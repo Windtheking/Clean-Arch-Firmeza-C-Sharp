@@ -5,4 +5,24 @@
 
 <h1>Dashboard de Usuario</h1>
 <p>Bienvenido, @User.Identity?.Name</p>
+<div class="modal fade" id="deleteAccountModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">
+                    Eliminar cuenta
+                </h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="deleteAccountBody">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

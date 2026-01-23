@@ -55,6 +55,21 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Client Register</a>
                     </li>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" 
+                                data-bs-toggle="dropdown">
+                            Menu
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <button class="dropdown-item text-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteAccountModal">
+                                    Borrar cuenta
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
         </div>

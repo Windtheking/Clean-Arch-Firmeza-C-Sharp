@@ -78,22 +78,29 @@ public class ProductService : IProductService
 
     public async Task<int> ImportFromExcelAsync(Stream file)
     {
-        var rows = await _excelMapper.ImportFromExcelAsync(file);
-        int inserted = 0;
-        
-        foreach (var row in rows)
+        try
         {
-            var product = new Product
+            var rows = await _excelMapper.ImportFromExcelAsync(file);
+            
+            
+            foreach (var row in rows)
             {
-                Id = Guid.NewGuid(),
-                Name = row.Name,
-                Description = row.Description,
-                UnitCost = row.UnitCost
-            };
-            await _repo.AddAsync(product);
-            inserted++;
-        }
+                var product = new Product
+                {
+                    Id = Guid.NewGuid(),
+                    Name = row.Name,
+                    Description = row.Description,
+                    UnitCost = row.UnitCost
+                };
+                await _repo.AddAsync(product);
+                
+            }
 
-        return inserted;
+            return rows.Count;
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new ApplicationException(ex.Message);   
+        }
     }
 }
